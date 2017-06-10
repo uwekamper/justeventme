@@ -21,4 +21,4 @@ Quick start
 3. Start the development server and visit http://127.0.0.1:8000/admin/
    to create a poll (you'll need the Admin app enabled).
 
-4. Visit http://127.0.0.1:8000/admin/ to look at the event
+4. Visit http://127.0.0.1:8000/admin/ to look at the event stream

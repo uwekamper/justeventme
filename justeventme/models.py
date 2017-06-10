@@ -1,8 +1,7 @@
 # -*- coding: utf-8 -*-
 from django.db import models
-from django.contrib.postgres.fields import HStoreField
-from model_utils.managers import InheritanceManager
 from django.db.models.base import ModelBase
+from django.contrib.postgres.fields import HStoreField
 
 
 class ReadModel(models.Model):
@@ -38,44 +37,33 @@ class BaseEventMetaclass(ModelBase):
         return obj.get_object()
 
 
-class BaseEvent(models.Model):
+class Event(models.Model):
     """
-    Events are simplistic way of keeping a log of all the changes
-    in our database.
+
     """
     __metaclass__ = BaseEventMetaclass
-    type = models.CharField(max_length=255)
+
     object_class = models.CharField(max_length=20)
+    stream_id = models.UUIDField(null=True, blank=True)
+    seq = models.IntegerField(null=True, blank=True)
+    created = models.DateTimeField(auto_now_add=True)
+    payload = HStoreField()
 
     def save(self, *args, **kwargs):
         if not self.object_class:
             self.object_class = self._meta.object_name
-        super(BaseEvent, self).save(*args, **kwargs)
+        super().save(*args, **kwargs)
 
     def get_object(self):
-        SUBCLASSES_OF_ANIMAL = dict([(cls.__name__, cls) for cls in BaseEvent.__subclasses__()])
-        if self.object_class in SUBCLASSES_OF_ANIMAL:
-            self.__class__ = SUBCLASSES_OF_ANIMAL[self.object_class]
+        """
+        After retrieving the Event object from the database this methods is
+        used to get the
+        """
+        SUBCLASSES_OF_EVENT = dict([(cls.__name__, cls) for cls in Event.__subclasses__()])
+        if self.object_class in SUBCLASSES_OF_EVENT:
+            self.__class__ = SUBCLASSES_OF_EVENT[self.object_class]
         return self
 
-    created = models.DateTimeField(auto_now_add=True)
-    # guid =
-    # sequence =
-    data = HStoreField()
+    class Meta:
+        unique_together=('stream_id', 'seq')
 
-    #class Meta:
-    #    abstract = True
-    objects = InheritanceManager()
-
-    @property
-    def event_type(self):
-        """
-        Returns the class name.
-        """
-        return self.get_object().__class__.__name__
-
-    # queryset_class = HStoreQuerySet
-    # event_type = models.IntegerField()
-
-    def __str__(self):
-        return '{} - {}: {}'.format(self.__class__.__name__, self.created, self.data)
