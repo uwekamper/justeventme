@@ -8,7 +8,7 @@ import django
 DEFAULT_SETTINGS = dict(
     INSTALLED_APPS=(
         'django.contrib.postgres',
-        'model_utils',
+        #'model_utils',
         'justeventme',
         'tests',
     ),

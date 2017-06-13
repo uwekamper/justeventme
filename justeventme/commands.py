@@ -1,10 +1,10 @@
 # -*- coding: utf-8 -*-
 from django.db import transaction
-from .projectors import handle_event
+from .projections import handle_event
 
 """
 RULES:
-  * commands must only create events
+  * commands must only yield events
   * commands never change an aggregate model themselves
   * commands never delete events, only add to the event stream.
   * you can of course check the current state of aggregate models

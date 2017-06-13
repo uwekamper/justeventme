@@ -4,6 +4,10 @@ from django.utils.timezone import now
 
 
 def is_true(value):
+    """
+    Check wether value contains the string 'true' in a variety of
+    capitalizations (e.g. "True" or "TRUE").
+    """
     return value.lower() == 'true'
 
 
@@ -19,6 +23,11 @@ def register_projector(projector_class):
     projector_pool.append(projector_class)
 
 
+def register_projections(projector_class):
+    global projector_pool
+    projector_pool += projector_class
+
+
 def handle_event(event):
     global projector_pool
     for projector_class in projector_pool:
@@ -26,7 +35,7 @@ def handle_event(event):
         projector._handle_event(event)
 
 
-class Projector(object):
+class Projection(object):
     """
     Abstract projector class. Contains registry.
     """
