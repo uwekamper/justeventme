@@ -21,7 +21,7 @@ class Command(object):
     Base class for commands
     """
     def __init__(self):
-        self._handle()
+        pass
 
     def pre(self):
         """
@@ -40,6 +40,9 @@ class Command(object):
         Overwrite this method to implement a post-hook for a command.
         """
         pass
+        
+    def execute(self):
+        self.handle()
 
     def _handle(self):
         self.pre()
