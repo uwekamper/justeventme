@@ -42,7 +42,7 @@ class Command(object):
         pass
         
     def execute(self):
-        self.handle()
+        self._handle()
 
     def _handle(self):
         self.pre()
