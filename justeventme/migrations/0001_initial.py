@@ -22,7 +22,7 @@ class Migration(migrations.Migration):
                 ('stream_id', models.UUIDField(blank=True, null=True)),
                 ('seq', models.IntegerField(blank=True, null=True)),
                 ('created', models.DateTimeField(auto_now_add=True)),
-                ('payload', django.contrib.postgres.fields.hstore.HStoreField()),
+                ('payload', django.contrib.postgres.fields.hstore.HStoreField(blank=True, null=True)),
             ],
         ),
         migrations.AlterUniqueTogether(
