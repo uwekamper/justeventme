@@ -18,7 +18,7 @@ class Migration(migrations.Migration):
             name='Event',
             fields=[
                 ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('object_class', models.CharField(max_length=20)),
+                ('object_class', models.CharField(max_length=1024)),
                 ('stream_id', models.UUIDField(blank=True, null=True)),
                 ('seq', models.IntegerField(blank=True, null=True)),
                 ('created', models.DateTimeField(auto_now_add=True)),
