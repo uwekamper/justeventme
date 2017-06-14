@@ -47,7 +47,7 @@ class Event(models.Model):
     stream_id = models.UUIDField(null=True, blank=True)
     seq = models.IntegerField(null=True, blank=True)
     created = models.DateTimeField(auto_now_add=True)
-    payload = HStoreField()
+    payload = HStoreField(null=True, blank=True)
 
     def save(self, *args, **kwargs):
         if not self.object_class:
