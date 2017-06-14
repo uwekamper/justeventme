@@ -43,7 +43,7 @@ class Event(models.Model):
     """
     __metaclass__ = BaseEventMetaclass
 
-    object_class = models.CharField(max_length=20)
+    object_class = models.CharField(max_length=1024)
     stream_id = models.UUIDField(null=True, blank=True)
     seq = models.IntegerField(null=True, blank=True)
     created = models.DateTimeField(auto_now_add=True)
